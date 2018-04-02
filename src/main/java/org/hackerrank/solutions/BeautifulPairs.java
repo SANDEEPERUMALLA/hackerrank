@@ -1,6 +1,7 @@
 package org.hackerrank.solutions;
 
 import java.io.*;
+import java.time.Instant;
 import java.util.*;
 import java.text.*;
 import java.math.*;
@@ -8,10 +9,29 @@ import java.util.regex.*;
 
 public class BeautifulPairs {
 
+
     static int beautifulPairs(int[] A, int[] B) {
 
-        return 1;
+
+    Map<Integer, Integer> countMap = new HashMap<>();
+
+    for (int n : A) {
+
+        Integer c = countMap.get(n);
+        countMap.put(n, c == null ? 1 : c + 1);
     }
+
+    int pairs = 0;
+    for (int n : B) {
+        Integer c = countMap.get(n);
+        if (c != null) {
+            pairs++;
+            countMap.put(n, c--);
+        }
+    }
+
+    return pairs+1;
+}
 
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
