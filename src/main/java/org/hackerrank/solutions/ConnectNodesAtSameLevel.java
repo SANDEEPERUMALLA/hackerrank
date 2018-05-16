@@ -6,32 +6,33 @@ import java.util.List;
 import java.util.Queue;
 
 
-class Node1 {
-    Node1 left;
-    Node1 right;
-    Node1 sideLink;
-    public int data;
 
-    Node1(int data) {
-        this.data = data;
-    }
-}
 
 public class ConnectNodesAtSameLevel {
 
-    static Node1 connectNode1sAtSameLevel(Node1 root) {
+   static class Node {
+        Node left;
+        Node right;
+        Node nextRight;
+        public int data;
 
-        Queue<Node1> q = new LinkedList<>();
+        Node(int data) {
+            this.data = data;
+        }
+    }
+
+    static Node connectNode1sAtSameLevel(Node root) {
+
+        Queue<Node> q = new LinkedList<>();
         q.add(root);
         int size = q.size();
 
-        List<Node1> l = new ArrayList<>();
+        List<Node> l = new LinkedList<>();
         while (!q.isEmpty()) {
 
             while (size != 0) {
-                Node1 n = q.remove();
+                Node n = q.remove();
                 l.add(n);
-                System.out.print(n.data + " ");
                 size--;
                 if (n.left != null) {
                     q.add(n.left);
@@ -42,10 +43,11 @@ public class ConnectNodesAtSameLevel {
             }
 
             for (int i = 0; i < l.size() - 1; i++) {
-                l.get(i).sideLink = l.get(i + 1);
+                l.get(i).nextRight = l.get(i + 1);
             }
 
-            System.out.println();
+            l.get(l.size()-1).nextRight = null;
+
 
             size = q.size();
         }
@@ -55,15 +57,15 @@ public class ConnectNodesAtSameLevel {
     }
 
     public static void main(String args[]) {
-        Node1 n1 = new Node1(1);
-        Node1 n2 = new Node1(2);
-        Node1 n3 = new Node1(3);
-        Node1 n4 = new Node1(4);
-        Node1 n5 = new Node1(5);
-        Node1 n6 = new Node1(6);
-        Node1 n7 = new Node1(7);
-        Node1 n8 = new Node1(8);
-        Node1 n9 = new Node1(9);
+        Node n1 = new Node(1);
+        Node n2 = new Node(2);
+        Node n3 = new Node(3);
+        Node n4 = new Node(4);
+        Node n5 = new Node(5);
+        Node n6 = new Node(6);
+        Node n7 = new Node(7);
+        Node n8 = new Node(8);
+        Node n9 = new Node(9);
 
         n1.left = n2;
         n1.right = n3;
